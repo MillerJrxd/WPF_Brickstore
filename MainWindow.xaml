@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LegoDolog"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="900">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="3.5*"/>
+        </Grid.ColumnDefinitions>
 
+        <DataGrid AutoGenerateColumns="False" Grid.Column="1" Margin="5" Background="LightGreen">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ItemID" Width="100"/>
+                <DataGridTextColumn Header="ItemName" Width="100"/>
+                <DataGridTextColumn Header="CategoryName" Width="100"/>
+                <DataGridTextColumn Header="ColorName" Width="100"/>
+                <DataGridTextColumn Header="Qty" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox Height="35" VerticalAlignment="Top" Margin="5 15 0 0" 
+                 FontSize="18" VerticalContentAlignment="Center"/>
     </Grid>
 </Window>

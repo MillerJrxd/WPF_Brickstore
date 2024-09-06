@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LegoDolog")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a8ca310173e47714a1af9d3f607fdf76ac5925c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("LegoDolog")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LegoDolog")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

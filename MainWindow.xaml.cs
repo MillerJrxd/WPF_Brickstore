@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.Win32;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,19 @@ namespace LegoDolog
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+            ofd.Filter = "BSX Files (*.bsx) |*.bsx|All files(*.*)| *.*";
+            if (ofd.ShowDialog() == true)
+            {
+                string fileP = ofd.FileName;
+            }
         }
     }
 }
