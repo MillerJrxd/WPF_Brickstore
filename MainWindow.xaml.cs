@@ -1,14 +1,10 @@
 ﻿using Microsoft.Win32;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Xml.Linq;
 using System.Windows.Controls;
+using System.ComponentModel;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LegoDolog
 {
@@ -17,22 +13,63 @@ namespace LegoDolog
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<Lego> Legos { get; set; }
+        private ICollectionView LegoCollectionView;
+
         public MainWindow()
         {
+            Legos = new ObservableCollection<Lego>();
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
+            DataContext = this;
 
+            // Set up CollectionView for filtering
+            LegoCollectionView = CollectionViewSource.GetDefaultView(Legos);
+            LegoCollectionView.Filter = FilterLegoItems;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = true;
-            ofd.Filter = "BSX Files (*.bsx) |*.bsx|All files(*.*)| *.*";
-            if (ofd.ShowDialog() == true)
+            OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                string fileP = ofd.FileName;
+                Filter = "BSX Files (*.bsx)|*.bsx|All files (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                LoadLegoItemsFromXaml(openFileDialog.FileName);
             }
         }
+
+        private void LoadLegoItemsFromXaml(string filename)
+        {
+            Legos.Clear();
+
+            try
+            {
+                XDocument xaml = XDocument.Load(filename);
+                foreach (var elem in xaml.Descendants("Item"))
+                {
+                    try
+                    {
+                        Legos.Add(new Lego(
+                            elem.Element("ItemID")?.Value ?? string.Empty,
+                            elem.Element("ItemName")?.Value ?? string.Empty,
+                            elem.Element("CategoryName")?.Value ?? string.Empty,
+                            elem.Element("ColorName")?.Value ?? string.Empty,
+                            int.Parse(elem.Element("Qty")?.Value ?? "0")
+                        ));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error parsing item: {ex.Message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load file: {ex.Message}");
+            }
+        }
+
     }
 }
