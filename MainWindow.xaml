@@ -5,23 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LegoDolog"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="900">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="3.5*"/>
-        </Grid.ColumnDefinitions>
+        Title="MainWindow" Height="550" Width="900" Loaded="Window_Loaded">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <DataGrid AutoGenerateColumns="False" Grid.Column="1" Margin="5" Background="LightGreen">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBox x:Name="FilterItemID" Width="150" Margin="0,0,10,0" TextChanged="FilterItemID_TextChanged"/>
+            <TextBox x:Name="FilterItemName" Width="150" TextChanged="FilterItemName_TextChanged"/>
+        </StackPanel>
+        
+        <DataGrid x:Name="LegoDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserSortColumns="True" 
+                  ItemsSource="{Binding Legos}" Margin="0,10,0,0" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ItemID" Width="100"/>
-                <DataGridTextColumn Header="ItemName" Width="100"/>
-                <DataGridTextColumn Header="CategoryName" Width="100"/>
-                <DataGridTextColumn Header="ColorName" Width="100"/>
-                <DataGridTextColumn Header="Qty" Width="100"/>
+                <DataGridTextColumn Header="Item ID" Binding="{Binding LegoID}" Width="Auto" />
+                <DataGridTextColumn Header="Item Name" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Category Name" Binding="{Binding CategoryName}" Width="*" />
+                <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}" Width="*" />
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox Height="35" VerticalAlignment="Top" Margin="5 15 0 0" 
-                 FontSize="18" VerticalContentAlignment="Center"/>
     </Grid>
 </Window>
