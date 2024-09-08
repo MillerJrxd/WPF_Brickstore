@@ -71,5 +71,26 @@ namespace LegoDolog
             }
         }
 
+        private bool FilterLegoItems(object item)
+        {
+            if (item is Lego lego)
+            {
+                bool idFilter = string.IsNullOrEmpty(FilterItemID.Text) || lego.LegoID.StartsWith(FilterItemID.Text, StringComparison.OrdinalIgnoreCase);
+                bool nameFilter = string.IsNullOrEmpty(FilterItemName.Text) || lego.Name.StartsWith(FilterItemName.Text, StringComparison.OrdinalIgnoreCase);
+
+                return idFilter && nameFilter;
+            }
+            return false;
+        }
+
+        private void FilterItemID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LegoCollectionView.Refresh();
+        }
+
+        private void FilterItemName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LegoCollectionView.Refresh();
+        }
     }
 }
