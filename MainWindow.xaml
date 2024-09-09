@@ -13,8 +13,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Label Content="Keresés ID:"/>
             <TextBox x:Name="FilterItemID" Width="150" Margin="0,0,10,0" TextChanged="FilterItemID_TextChanged"/>
+            <Label Content="Keresés Név:"/>
             <TextBox x:Name="FilterItemName" Width="150" TextChanged="FilterItemName_TextChanged"/>
+            <Button Content="Fájl megnyitása" Margin="40 0 0 0" Click="Button_Click"/>
         </StackPanel>
         
         <DataGrid x:Name="LegoDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserSortColumns="True" 
