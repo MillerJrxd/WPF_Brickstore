@@ -92,5 +92,9 @@ namespace LegoDolog
         {
             LegoCollectionView.Refresh();
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window_Loaded(sender, e);
+        }
     }
 }
